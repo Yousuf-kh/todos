@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Meal Plan</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #0f0f0f;
+    color: #f0ede6;
+    font-family: 'DM Sans', sans-serif;
+    min-height: 100vh;
+    padding: 32px 16px;
+  }
+
+  h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 3rem;
+    letter-spacing: 4px;
+    text-align: center;
+    color: #f0ede6;
+    margin-bottom: 4px;
+  }
+
+  .subtitle {
+    text-align: center;
+    font-size: 0.8rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: #888;
+    margin-bottom: 36px;
+  }
+
+  .tabs {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 28px;
+  }
+
+  .tab {
+    padding: 8px 20px;
+    border-radius: 100px;
+    font-size: 0.8rem;
+    letter-spacing: 1px;
+    cursor: pointer;
+    border: 1px solid #333;
+    background: transparent;
+    color: #888;
+    font-family: 'DM Sans', sans-serif;
+    transition: all 0.2s;
+  }
+
+  .tab.active {
+    background: #e8ff47;
+    color: #0f0f0f;
+    border-color: #e8ff47;
+    font-weight: 500;
+  }
+
+  .plan { display: none; max-width: 480px; margin: 0 auto; }
+  .plan.active { display: block; }
+
+  .meal-card {
+    background: #1a1a1a;
+    border-radius: 16px;
+    padding: 20px;
+    margin-bottom: 12px;
+    border: 1px solid #252525;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .meal-card::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 3px;
+    background: #e8ff47;
+    border-radius: 3px 0 0 3px;
+  }
+
+  .meal-card.post::before { background: #ff6b35; }
+  .meal-card.evening::before { background: #7c6af7; }
+
+  .meal-time {
+    font-size: 0.65rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: #555;
+    margin-bottom: 6px;
+  }
+
+  .meal-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.4rem;
+    letter-spacing: 2px;
+    color: #f0ede6;
+    margin-bottom: 10px;
+  }
+
+  .meal-items {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .meal-items li {
+    font-size: 0.88rem;
+    color: #aaa;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .meal-items li::before {
+    content: '';
+    width: 5px; height: 5px;
+    border-radius: 50%;
+    background: #444;
+    flex-shrink: 0;
+  }
+
+  .note {
+    background: #1e1e14;
+    border: 1px solid #3a3a1a;
+    border-radius: 12px;
+    padding: 14px 16px;
+    margin-top: 16px;
+    font-size: 0.82rem;
+    color: #999;
+    line-height: 1.5;
+  }
+
+  .note span {
+    color: #e8ff47;
+    font-weight: 500;
+  }
+
+  .kcal-bar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 20px;
+    padding: 14px 16px;
+    background: #161616;
+    border-radius: 12px;
+    border: 1px solid #252525;
+  }
+
+  .kcal-label { font-size: 0.75rem; color: #555; letter-spacing: 1px; text-transform: uppercase; }
+  .kcal-val { font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; color: #e8ff47; margin-left: auto; }
+</style>
+</head>
+<body>
+
+<h1>YOUR MEAL PLAN</h1>
+<p class="subtitle">Fat Loss · No Tracking · Simple</p>
+
+<div class="tabs">
+  <button class="tab active" onclick="switchTab('rest')">Rest Day</button>
+  <button class="tab" onclick="switchTab('train')">Training Day</button>
+</div>
+
+<!-- REST DAY -->
+<div class="plan active" id="rest">
+
+  <div class="meal-card">
+    <div class="meal-time">Morning</div>
+    <div class="meal-title">Eggs</div>
+    <ul class="meal-items">
+      <li>3–4 eggs, any style</li>
+    </ul>
+  </div>
+
+  <div class="meal-card">
+    <div class="meal-time">Afternoon</div>
+    <div class="meal-title">Bars + Fruit</div>
+    <ul class="meal-items">
+      <li>2 protein bars</li>
+      <li>Some fruit (banana, apple, berries)</li>
+    </ul>
+  </div>
+
+  <div class="meal-card evening">
+    <div class="meal-time">Evening</div>
+    <div class="meal-title">Light Dinner</div>
+    <ul class="meal-items">
+      <li>1 small oat pack with milk — pour, wait, eat</li>
+      <li>Portion of cottage cheese on the side</li>
+    </ul>
+  </div>
+
+  <div class="kcal-bar">
+    <span class="kcal-label">Approx. total</span>
+    <span class="kcal-val">1000–1300 kcal</span>
+  </div>
+
+</div>
+
+<!-- TRAINING DAY -->
+<div class="plan" id="train">
+
+  <div class="meal-card">
+    <div class="meal-time">Before Training · 45–60 min prior</div>
+    <div class="meal-title">2–3 Eggs</div>
+    <ul class="meal-items">
+      <li>Light enough to not feel heavy</li>
+      <li>Enough to fuel the session</li>
+    </ul>
+  </div>
+
+  <div class="meal-card post">
+    <div class="meal-time">Right After Training</div>
+    <div class="meal-title">2 Bars + Remaining Eggs + Fruit</div>
+    <ul class="meal-items">
+      <li>Both protein bars</li>
+      <li>1–2 remaining eggs</li>
+      <li>Fruit — natural sugar helps recovery</li>
+    </ul>
+  </div>
+
+  <div class="meal-card evening">
+    <div class="meal-time">Evening</div>
+    <div class="meal-title">Light Dinner</div>
+    <ul class="meal-items">
+      <li>1 small oat pack with milk — pour, wait, eat</li>
+      <li>Portion of cottage cheese on the side</li>
+    </ul>
+  </div>
+
+  <div class="note">
+    <span>Feeling drained?</span> Add a banana or an extra egg after training. It won't hurt fat loss — it just makes sure the workout actually did something.
+  </div>
+
+  <div class="kcal-bar">
+    <span class="kcal-label">Approx. total</span>
+    <span class="kcal-val">1100–1500 kcal</span>
+  </div>
+
+</div>
+
+<script>
+  function switchTab(tab) {
+    document.querySelectorAll('.plan').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    document.getElementById(tab).classList.add('active');
+    event.target.classList.add('active');
+  }
+</script>
+
+</body>
+</html>
